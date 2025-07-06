@@ -1,307 +1,333 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rama Krishna Aditya Bharadwaj Kolluri - Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #111827; /* Dark Blue-Gray */
-            color: #E5E7EB; /* Light Gray */
-        }
-        .glass-effect {
-            background: rgba(31, 41, 55, 0.5); /* Semi-transparent dark gray */
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .accent-color {
-            color: #38bdf8; /* Sky Blue */
-        }
-        .accent-bg {
-            background-color: #38bdf8;
-        }
-        .accent-border {
-            border-color: #38bdf8;
-        }
-        .section-title {
-            @apply text-3xl font-bold mb-8 text-center accent-color tracking-wider;
-        }
-        .card {
-            @apply glass-effect rounded-xl p-6 shadow-lg transition-transform duration-300 hover:scale-105;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rama Krishna Aditya Bharadwaj Kolluri | Portfolio</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Theme -->
+  <style>
+    :root { --accent:#38bdf8; }
+    body    { font-family:'Inter',sans-serif; background:#111827; color:#E5E7EB; }
+    .glass  { background:rgba(31,41,55,.50); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.1); }
+    .accent { color:var(--accent); }
+    .btn    { @apply inline-block font-bold rounded-lg transition-colors duration-300; }
+  </style>
 </head>
 <body class="antialiased">
 
-    <!-- Header -->
-    <header class="glass-effect fixed top-0 left-0 right-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold text-white">Rama Krishna Aditya Bharadwaj Kolluri</a>
-            <nav class="hidden md:flex space-x-8">
-                <a href="#about" class="hover:accent-color transition-colors duration-300">About</a>
-                <a href="#skills" class="hover:accent-color transition-colors duration-300">Skills</a>
-                <a href="#experience" class="hover:accent-color transition-colors duration-300">Experience</a>
-                <a href="#projects" class="hover:accent-color transition-colors duration-300">Projects</a>
-                <a href="#education" class="hover:accent-color transition-colors duration-300">Education</a>
-                <a href="#contact" class="hover:accent-color transition-colors duration-300">Contact</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
-            <a href="#about" class="block py-2 hover:accent-color transition-colors duration-300">About</a>
-            <a href="#skills" class="block py-2 hover:accent-color transition-colors duration-300">Skills</a>
-            <a href="#experience" class="block py-2 hover:accent-color transition-colors duration-300">Experience</a>
-            <a href="#projects" class="block py-2 hover:accent-color transition-colors duration-300">Projects</a>
-            <a href="#education" class="block py-2 hover:accent-color transition-colors duration-300">Education</a>
-            <a href="#contact" class="block py-2 hover:accent-color transition-colors duration-300">Contact</a>
-        </div>
-    </header>
+<!-- ===== Header ===== -->
+<header class="glass fixed inset-x-0 top-0 z-50">
+  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="#" class="text-xl font-bold text-white tracking-wide">Rama Krishna Aditya Bharadwaj Kolluri</a>
 
-    <main class="container mx-auto px-6 pt-24">
+    <nav class="hidden md:flex space-x-8">
+      <a href="#about"      class="hover:accent">About</a>
+      <a href="#skills"     class="hover:accent">Skills</a>
+      <a href="#experience" class="hover:accent">Experience</a>
+      <a href="#projects"   class="hover:accent">Projects</a>
+      <a href="#education"  class="hover:accent">Education</a>
+      <a href="#contact"    class="hover:accent">Contact</a>
+    </nav>
 
-        <!-- Hero Section -->
-        <section id="home" class="min-h-screen flex items-center">
-            <div class="w-full grid grid-cols-1 md:grid-cols-2 items-center gap-12">
-                <div class="text-center md:text-left">
-                    <h1 class="text-4xl md:text-5xl font-bold leading-tight text-white">Rama Krishna Aditya Bharadwaj Kolluri</h1>
-                    <p class="text-lg md:text-2xl mt-4 accent-color">Business Systems & Technology Analyst | Digital Transformation Specialist</p>
-                    <p class="mt-6 max-w-3xl text-gray-300">
-                        A results-driven professional bridging academia and industry, with expertise in AI implementation, digital transformation, and autonomous systems development. Passionate about optimizing operational efficiency and aligning cutting-edge technology with strategic objectives.
-                    </p>
-                    <div class="mt-8 flex justify-center md:justify-start space-x-4">
-                        <a href="https://www.linkedin.com/in/krkab369/" target="_blank" class="accent-bg text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-500 transition-colors duration-300">
-                            View LinkedIn
-                        </a>
-                        <a href="https://github.com/Aditya469" target="_blank" class="border-2 accent-border text-white font-bold py-3 px-6 rounded-lg hover:bg-sky-500 hover:text-white transition-colors duration-300">
-                            View GitHub
-                        </a>
-                    </div>
-                </div>
-                <div class="flex justify-center">
-                    <!-- IMPORTANT: Replace the src attribute with the path to your uploaded image -->
-                    <img src="https://i.ibb.co/6yZ2yZM/profile-pic.jpg" alt="Rama Krishna Aditya Bharadwaj Kolluri" class="rounded-full w-64 h-64 md:w-80 md:h-80 object-cover border-4 accent-border shadow-2xl">
-                </div>
-            </div>
-        </section>
+    <button id="burger" class="md:hidden text-white focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16m-7 6h7"/>
+      </svg>
+    </button>
+  </div>
 
-        <!-- About Section -->
-        <section id="about" class="py-20">
-            <h2 class="section-title">About Me</h2>
-            <div class="card max-w-4xl mx-auto">
-                <p class="text-lg leading-relaxed">
-                    I am a dynamic Business Systems and Technology Analyst leading transformative digitalization initiatives at ECAM Precision Engineering Ltd. My focus is on optimizing operational efficiency and aligning cutting-edge technology with strategic business goals to drive growth and enhance decision-making.
-                </p>
-                <br>
-                <p class="text-lg leading-relaxed">
-                    In my dual role as a Knowledge Transfer Partnership (KTP) Associate with Birmingham City University, I bridge the gap between academia and industry. This unique position allows me to blend academic rigor with real-world expertise, crafting innovative solutions that address today's challenges and anticipate tomorrow's opportunities. I am passionate about shaping the future of engineering and technology through collaborative innovation.
-                </p>
-            </div>
-        </section>
+  <!-- Mobile Nav -->
+  <div id="mobile" class="hidden md:hidden px-6 pb-4">
+    <a href="#about"      class="block py-2 hover:accent">About</a>
+    <a href="#skills"     class="block py-2 hover:accent">Skills</a>
+    <a href="#experience" class="block py-2 hover:accent">Experience</a>
+    <a href="#projects"   class="block py-2 hover:accent">Projects</a>
+    <a href="#education"  class="block py-2 hover:accent">Education</a>
+    <a href="#contact"    class="block py-2 hover:accent">Contact</a>
+  </div>
+</header>
 
-        <!-- Skills Section -->
-        <section id="skills" class="py-20">
-            <h2 class="section-title">Technical Skills</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="card">
-                    <h3 class="text-xl font-bold text-white mb-4">Machine Learning & AI</h3>
-                    <ul class="space-y-2">
-                        <li>OpenCV</li>
-                        <li>TensorFlow</li>
-                        <li>Scikit-learn</li>
-                        <li>Neural Networks & Deep Learning</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3 class="text-xl font-bold text-white mb-4">Data & Development</h3>
-                    <ul class="space-y-2">
-                        <li>Python, PHP, Java</li>
-                        <li>Pandas, NumPy, Matplotlib</li>
-                        <li>SQL</li>
-                        <li>GitHub</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3 class="text-xl font-bold text-white mb-4">Systems & Hardware</h3>
-                    <ul class="space-y-2">
-                        <li>Arduino, Raspberry Pi</li>
-                        <li>Sensor Integration</li>
-                        <li>MATLAB, NI LabVIEW</li>
-                        <li>Autonomous Systems</li>
-                    </ul>
-                </div>
-                 <div class="card">
-                    <h3 class="text-xl font-bold text-white mb-4">Testing & Automation</h3>
-                    <ul class="space-y-2">
-                        <li>Selenium</li>
-                        <li>Postman</li>
-                        <li>Python Unit Tests</li>
-                    </ul>
-                </div>
-                 <div class="card">
-                    <h3 class="text-xl font-bold text-white mb-4">Business & Strategy</h3>
-                    <ul class="space-y-2">
-                        <li>Agile Project Management</li>
-                        <li>IT & Marketing Strategy</li>
-                        <li>Business Analysis</li>
-                        <li>Strategic Communications</li>
-                    </ul>
-                </div>
-                 <div class="card">
-                    <h3 class="text-xl font-bold text-white mb-4">Certifications</h3>
-                    <ul class="space-y-2">
-                        <li>Agile PM Foundation & Practitioner</li>
-                        <li>Chartered Management Institute (CMI)</li>
-                        <li>Agentic AI + N8N for Workflow Automation</li>
-                        <li>ChatGPT Prompt Engineering</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+<main class="container mx-auto px-6 pt-24">
 
-        <!-- Experience Section -->
-        <section id="experience" class="py-20">
-            <h2 class="section-title">Work Experience</h2>
-            <div class="relative max-w-4xl mx-auto">
-                <!-- Vertical Line -->
-                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 accent-bg"></div>
-                
-                <!-- Experience Item 1 -->
-                <div class="mb-8 flex justify-between items-center w-full">
-                    <div class="order-1 w-5/12"></div>
-                    <div class="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
-                        <h1 class="mx-auto font-semibold text-lg text-white">1</h1>
-                    </div>
-                    <div class="order-1 card w-5/12 px-6 py-4">
-                        <p class="text-sm accent-color">July 2023 - Present</p>
-                        <h3 class="mb-3 font-bold text-white text-xl">Business Systems & Technology Analyst</h3>
-                        <p class="text-sm leading-snug tracking-wide text-gray-300">ECAM Engineering & Birmingham City University</p>
-                    </div>
-                </div>
+<!-- ===== Hero ===== -->
+<section id="home" class="min-h-screen flex items-center">
+  <div class="w-full grid grid-cols-1 md:grid-cols-2 items-center gap-12">
+    <div class="text-center md:text-left">
+      <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">
+        Rama Krishna Aditya Bharadwaj Kolluri
+      </h1>
+      <p class="text-lg md:text-2xl mt-4 accent">
+        Business Systems & Technology Analyst • Digital Transformation Specialist
+      </p>
+      <p class="mt-6 max-w-3xl text-gray-300">
+        Results-driven professional bridging academia and industry through AI-led digitalisation,
+        workflow automation and autonomous systems. Passionate about optimising operations
+        and crafting data-driven strategies that propel growth.
+      </p>
 
-                <!-- Experience Item 2 -->
-                <div class="mb-8 flex justify-between flex-row-reverse items-center w-full">
-                    <div class="order-1 w-5/12"></div>
-                    <div class="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
-                        <h1 class="mx-auto text-white font-semibold text-lg">2</h1>
-                    </div>
-                    <div class="order-1 card w-5/12 px-6 py-4">
-                        <p class="text-sm accent-color">Feb 2022 - June 2023</p>
-                        <h3 class="mb-3 font-bold text-white text-xl">Graduate Project Engineer</h3>
-                        <p class="text-sm leading-snug tracking-wide text-gray-300">DigitME2, University of Central Lancashire</p>
-                    </div>
-                </div>
-                
-                <!-- Experience Item 3 -->
-                <div class="mb-8 flex justify-between items-center w-full">
-                    <div class="order-1 w-5/12"></div>
-                    <div class="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full">
-                        <h1 class="mx-auto font-semibold text-lg text-white">3</h1>
-                    </div>
-                    <div class="order-1 card w-5/12 px-6 py-4">
-                        <p class="text-sm accent-color">May 2021 - Sep 2021</p>
-                        <h3 class="mb-3 font-bold text-white text-xl">Research Intern - Autonomous Vehicles</h3>
-                        <p class="text-sm leading-snug tracking-wide text-gray-300">Arab Academy for Science, Technology & Maritime Transport</p>
-                    </div>
-                </div>
+      <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
+        <a href="https://www.linkedin.com/in/krkab369/" target="_blank"
+           class="btn px-6 py-3 accent bg-opacity-90 hover:bg-opacity-100 text-white">LinkedIn</a>
 
-            </div>
-        </section>
+        <a href="https://github.com/Aditya469" target="_blank"
+           class="btn px-6 py-3 border-2 border-[var(--accent)] text-white hover:bg-[var(--accent)]">
+          GitHub
+        </a>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-20">
-            <h2 class="section-title">Key Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="card">
-                    <h3 class="text-xl font-bold text-white mb-2">Smart Planetary Rover</h3>
-                    <p class="text-sm accent-color mb-4">MSc Project</p>
-                    <p>Developed a rover with a pedal rail alignment system across its wheels, enhancing mobility and stability on uneven terrain for planetary exploration simulations.</p>
-                </div>
-                <div class="card">
-                    <h3 class="text-xl font-bold text-white mb-2">Piezoelectric Energy Harvester</h3>
-                    <p class="text-sm accent-color mb-4">MSc Group Project</p>
-                    <p>Designed and developed a device to capture and convert ambient mechanical vibrations into usable electrical energy, showcasing principles of sustainable power generation.</p>
-                </div>
-                <div class="card">
-                    <h3 class="text-xl font-bold text-white mb-2">Box Transfer Machine</h3>
-                    <p class="text-sm accent-color mb-4">BTech Project</p>
-                    <p>Engineered an automated system for transferring boxes in small-scale industries, aiming to improve efficiency and reduce manual labor in production lines.</p>
-                </div>
-            </div>
-        </section>
+        <!-- Download buttons -->
+        <a href="support_files/profile.pdf" download
+           class="btn px-6 py-3 border-2 border-[var(--accent)] text-white hover:bg-[var(--accent)]">
+          CV (PDF)
+        </a>
+        <a href="support_files/Rama-Kolluri.docx" download
+           class="btn px-6 py-3 border-2 border-[var(--accent)] text-white hover:bg-[var(--accent)]">
+          CV (DOCX)
+        </a>
+      </div>
+    </div>
 
-        <!-- Education Section -->
-        <section id="education" class="py-20">
-            <h2 class="section-title">Education</h2>
-            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-                <div class="card">
-                    <p class="text-sm accent-color">2020 - 2021</p>
-                    <h3 class="text-xl font-bold text-white mt-2">Master of Science in Mechatronics and Intelligent Machines (Distinction)</h3>
-                    <p class="text-gray-300 mt-1">University of Central Lancashire, Preston, UK</p>
-                </div>
-                <div class="card">
-                    <p class="text-sm accent-color">2013 - 2018</p>
-                    <h3 class="text-xl font-bold text-white mt-2">Bachelor of Technology in Mechanical Engineering</h3>
-                    <p class="text-gray-300 mt-1">Vishnu Institute of Technology, Bhimavaram, India</p>
-                </div>
-            </div>
-        </section>
+    <div class="flex justify-center">
+      <!-- Replace with your actual filename -->
+      <img src="support_files/profile.jpg"
+           alt="Rama Krishna Aditya Bharadwaj Kolluri"
+           class="rounded-full w-64 h-64 md:w-80 md:h-80 object-cover border-4 border-[var(--accent)] shadow-2xl">
+    </div>
+  </div>
+</section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-20">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="card max-w-2xl mx-auto text-center">
-                <p class="text-lg mb-6">I'm always open to discussing new projects, creative ideas, or opportunities to be part of an ambitious vision. Feel free to reach out.</p>
-                <a href="mailto:aditya.kolluri0@gmail.com" class="inline-block accent-bg text-white font-bold py-3 px-8 rounded-lg hover:bg-sky-500 transition-colors duration-300 text-lg">
-                    Say Hello
-                </a>
-                <div class="mt-8 text-gray-400">
-                    <p>Email: aditya.kolluri0@gmail.com</p>
-                </div>
-            </div>
-        </section>
+<!-- ===== About ===== -->
+<section id="about" class="py-20">
+  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">About Me</h2>
+  <div class="glass rounded-xl p-8 max-w-4xl mx-auto">
+    <p class="text-lg leading-relaxed">
+      I lead transformative digitalisation at <span class="accent">ECAM Precision Engineering Ltd</span>,
+      driving visibility, traceability and AI-driven efficiency across manufacturing.
+      As a <span class="accent">Knowledge Transfer Partnership (KTP) Associate</span> with
+      Birmingham City University, I fuse academic rigour with industrial execution,
+      crafting innovative solutions that anticipate tomorrow’s challenges.
+    </p><br>
+    <p class="text-lg leading-relaxed">
+      Certified in <strong>Agentic AI + N8N Workflow Automation</strong>, Agile PM, and Prompt Engineering,
+      I specialise in workflow orchestration, data analytics and autonomous systems,
+      continuously translating complex technology into measurable business value.
+    </p>
+  </div>
+</section>
 
-    </main>
+<!-- ===== Skills ===== -->
+<section id="skills" class="py-20">
+  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">Technical Skills</h2>
+  <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <!-- Card -->
+    <div class="glass rounded-xl p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold text-white mb-4">Machine Learning / AI</h3>
+      <ul class="space-y-1">
+        <li>OpenCV • TensorFlow • Scikit-learn • Neural Networks</li>
+      </ul>
+    </div>
+    <!-- Card -->
+    <div class="glass rounded-xl p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold text-white mb-4">Data & Development</h3>
+      <ul class="space-y-1">
+        <li>Python • PHP • Java • SQL</li>
+        <li>Pandas • NumPy • Matplotlib</li>
+        <li>Git / GitHub</li>
+      </ul>
+    </div>
+    <!-- Card -->
+    <div class="glass rounded-xl p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold text-white mb-4">Systems & Hardware</h3>
+      <ul class="space-y-1">
+        <li>Arduino • Raspberry Pi • Sensor Integration</li>
+        <li>MATLAB • NI LabVIEW</li>
+        <li>Autonomous Robotics</li>
+      </ul>
+    </div>
+    <!-- Card -->
+    <div class="glass rounded-xl p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold text-white mb-4">Testing & Automation</h3>
+      <ul class="space-y-1">
+        <li>Selenium • Postman • Python Unit Tests</li>
+        <li>Agentic AI + N8N Workflows</li>
+      </ul>
+    </div>
+    <!-- Card -->
+    <div class="glass rounded-xl p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold text-white mb-4">Business & Strategy</h3>
+      <ul class="space-y-1">
+        <li>Agile Project Management</li>
+        <li>IT & Marketing Strategy</li>
+        <li>Business Analysis</li>
+        <li>Strategic Communications</li>
+      </ul>
+    </div>
+    <!-- Card -->
+    <div class="glass rounded-xl p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold text-white mb-4">Languages</h3>
+      <ul class="space-y-1">
+        <li>English (Full Professional)</li>
+        <li>Telugu (Native)</li>
+        <li>Hindi (Limited Working)</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-800">
-        <div class="container mx-auto py-6 px-6 text-center text-gray-500">
-             <div class="flex justify-center space-x-6 mb-4">
-                <a href="https://www.linkedin.com/in/krkab369/" target="_blank" class="hover:text-white transition-colors duration-300">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
-                </a>
-                <a href="https://github.com/Aditya469" target="_blank" class="hover:text-white transition-colors duration-300">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.168 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.65.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"/></svg>
-                </a>
-            </div>
-            <p>&copy; 2025 Rama Krishna Aditya Bharadwaj Kolluri. All Rights Reserved.</p>
-        </div>
-    </footer>
+<!-- ===== Experience ===== -->
+<section id="experience" class="py-20">
+  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">Experience</h2>
+  <div class="relative max-w-4xl mx-auto">
+    <!-- vertical line -->
+    <div class="absolute left-1/2 -translate-x-1/2 h-full w-[2px] bg-[var(--accent)]"></div>
 
-    <script>
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
+    <!-- Item -->
+    <div class="mb-12 flex justify-between items-start w-full">
+      <div class="order-1 w-5/12"></div>
+      <div class="z-20 order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full flex items-center justify-center">
+        <span class="font-semibold text-white">1</span>
+      </div>
+      <div class="order-1 glass rounded-xl p-6 w-5/12">
+        <p class="text-sm accent">Jul 2023 – Present</p>
+        <h3 class="font-bold text-lg text-white">Business Systems & Technology Analyst</h3>
+        <p class="text-gray-300 text-sm">ECAM Engineering & Birmingham City University</p>
+      </div>
+    </div>
 
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+    <!-- Item -->
+    <div class="mb-12 flex justify-between flex-row-reverse items-start w-full">
+      <div class="order-1 w-5/12"></div>
+      <div class="z-20 order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full flex items-center justify-center">
+        <span class="font-semibold text-white">2</span>
+      </div>
+      <div class="order-1 glass rounded-xl p-6 w-5/12">
+        <p class="text-sm accent">Feb 2022 – Jun 2023</p>
+        <h3 class="font-bold text-lg text-white">Graduate Project Engineer</h3>
+        <p class="text-gray-300 text-sm">DigitME2, University of Central Lancashire</p>
+      </div>
+    </div>
 
-        // Close mobile menu when a link is clicked
-        const mobileMenuLinks = mobileMenu.getElementsByTagName('a');
-        for (let link of mobileMenuLinks) {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        }
-    </script>
+    <!-- Item -->
+    <div class="mb-12 flex justify-between items-start w-full">
+      <div class="order-1 w-5/12"></div>
+      <div class="z-20 order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full flex items-center justify-center">
+        <span class="font-semibold text-white">3</span>
+      </div>
+      <div class="order-1 glass rounded-xl p-6 w-5/12">
+        <p class="text-sm accent">May 2021 – Sep 2021</p>
+        <h3 class="font-bold text-lg text-white">Research Intern – Autonomous Vehicles</h3>
+        <p class="text-gray-300 text-sm">Arab Academy for Science, Technology & Maritime Transport</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Projects ===== -->
+<section id="projects" class="py-20">
+  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">Key Projects</h2>
+  <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    <!-- Card -->
+    <div class="glass rounded-xl p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold text-white mb-2">Smart Planetary Rover</h3>
+      <p class="text-sm accent mb-4">MSc Thesis</p>
+      <p>Designed a rover with pedal-rail alignment for improved stability on uneven terrain.</p>
+    </div>
+    <!-- Card -->
+    <div class="glass rounded-xl p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold text-white mb-2">Piezoelectric Energy Harvester</h3>
+      <p class="text-sm accent mb-4">MSc Group Project</p>
+      <p>Engineered a device to convert ambient vibrations into electrical energy.</p>
+    </div>
+    <!-- Card -->
+    <div class="glass rounded-xl p-6 hover:scale-105 transition">
+      <h3 class="text-xl font-bold text-white mb-2">Box Transfer Machine</h3>
+      <p class="text-sm accent mb-4">BTech Capstone</p>
+      <p>Automated box transfer system for small-scale industries to boost efficiency.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Education ===== -->
+<section id="education" class="py-20">
+  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">Education</h2>
+  <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+    <div class="glass rounded-xl p-6">
+      <p class="text-sm accent">2020 – 2021</p>
+      <h3 class="text-lg font-bold text-white mt-2">MSc Mechatronics & Intelligent Machines (Distinction)</h3>
+      <p class="text-gray-300">University of Central Lancashire, UK</p>
+    </div>
+    <div class="glass rounded-xl p-6">
+      <p class="text-sm accent">2013 – 2018</p>
+      <h3 class="text-lg font-bold text-white mt-2">BTech Mechanical Engineering</h3>
+      <p class="text-gray-300">Vishnu Institute of Technology, India</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Contact ===== -->
+<section id="contact" class="py-20">
+  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">Get in Touch</h2>
+  <div class="glass rounded-xl p-8 max-w-2xl mx-auto text-center">
+    <p class="text-lg mb-6">
+      Interested in collaborating or just want to say hi? Drop a message!
+    </p>
+    <a href="mailto:aditya.kolluri0@gmail.com"
+       class="btn px-8 py-3 bg-[var(--accent)] text-white hover:bg-sky-500 text-lg">
+      Say Hello
+    </a>
+    <div class="mt-8 text-gray-400">
+      Email: aditya.kolluri0@gmail.com
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="border-t border-gray-800">
+  <div class="container mx-auto py-6 px-6 text-center text-gray-500">
+    <div class="flex justify-center gap-6 mb-4">
+      <a href="https://www.linkedin.com/in/krkab369/" target="_blank" class="hover:text-white transition">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5V5c0-2.761-2.239-5-5-5zM8 19H5V8h3v11zm-1.5-12.3c-.966 0-1.75-.79-1.75-1.764 0-.975.784-1.764 1.75-1.764s1.75.789 1.75 1.764c0 .974-.784 1.764-1.75 1.764zm13.5 12.3h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765C14.396 7.179 20 6.988 20 12.241V19z"
+            clip-rule="evenodd"/>
+        </svg>
+      </a>
+      <a href="https://github.com/Aditya469" target="_blank" class="hover:text-white transition">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M12 .5C5.648.5.5 5.648.5 12c0 5.084 3.292 9.387 7.865 10.905.575.106.784-.25.784-.556
+             0-.274-.01-1-.016-1.964-3.194.695-3.87-1.54-3.87-1.54-.523-1.33-1.275-1.684-1.275-1.684-1.043-.713.079-.699.079-.699
+             1.154.081 1.762 1.184 1.762 1.184 1.025 1.756 2.691 1.249 3.348.955.104-.743.402-1.249.731-1.537-2.553-.29-5.237-1.281-5.237-5.702
+             0-1.259.448-2.289 1.183-3.094-.118-.29-.512-1.456.112-3.033 0 0 .965-.31 3.162 1.182a11.013 11.013 0 012.879-.387
+             c.975.004 1.955.132 2.878.387 2.2-1.492 3.163-1.182 3.163-1.182.626 1.576.232 2.742.113 3.033.737.805 1.182
+             1.835 1.182 3.094 0 4.432-2.689 5.409-5.254 5.694.414.357.783 1.062.783 2.138
+             0 1.545-.014 2.788-.014 3.167 0 .309.207.668.789.555C20.711 21.382 24 17.081 24 12
+             24 5.648 18.352.5 12 .5z"
+            clip-rule="evenodd"/>
+        </svg>
+      </a>
+    </div>
+    <p>&copy; 2025 Rama Krishna Aditya Bharadwaj Kolluri. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- ===== Scripts ===== -->
+<script>
+  // burger menu
+  const burger = document.getElementById('burger');
+  const mobile = document.getElementById('mobile');
+  burger.addEventListener('click', () => mobile.classList.toggle('hidden'));
+</script>
 
 </body>
 </html>
