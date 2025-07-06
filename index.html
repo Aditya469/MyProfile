@@ -1,333 +1,1315 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rama Krishna Aditya Bharadwaj Kolluri | Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rama Krishna Aditya Bharadwaj Kolluri | Portfolio</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    
+    <!-- Three.js for 3D Effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #00d4ff;
+            --secondary-color: #0066cc;
+            --accent-color: #ff6b35;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: rgba(26, 26, 26, 0.8);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --gradient-primary: linear-gradient(135deg, #00d4ff 0%, #0066cc 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            cursor: none;
+        }
 
-  <!-- Theme -->
-  <style>
-    :root { --accent:#38bdf8; }
-    body    { font-family:'Inter',sans-serif; background:#111827; color:#E5E7EB; }
-    .glass  { background:rgba(31,41,55,.50); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.1); }
-    .accent { color:var(--accent); }
-    .btn    { @apply inline-block font-bold rounded-lg transition-colors duration-300; }
-  </style>
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.3s ease;
+        }
+
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(0, 102, 204, 0.1) 0%, transparent 50%);
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu */
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text {
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .typing-text {
+            border-right: 3px solid var(--primary-color);
+            padding-right: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: var(--primary-color); }
+            51%, 100% { border-color: transparent; }
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Profile Image */
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .profile-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            box-shadow: var(--shadow-glow);
+            transition: all 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.5);
+        }
+
+        .profile-ring {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-avatar {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 20px;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .skill-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skill-list li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 50%;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -10px;
+        }
+
+        .timeline-date {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-secondary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .project-title {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-type {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .social-link:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(10, 10, 10, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: left 0.3s ease;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: calc(100% - 40px);
+                left: 40px !important;
+            }
+
+            .timeline-item::before {
+                left: -30px !important;
+            }
+
+            .profile-container {
+                width: 250px;
+                height: 250px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-text {
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1001;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+    </style>
 </head>
-<body class="antialiased">
-
-<!-- ===== Header ===== -->
-<header class="glass fixed inset-x-0 top-0 z-50">
-  <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-    <a href="#" class="text-xl font-bold text-white tracking-wide">Rama Krishna Aditya Bharadwaj Kolluri</a>
-
-    <nav class="hidden md:flex space-x-8">
-      <a href="#about"      class="hover:accent">About</a>
-      <a href="#skills"     class="hover:accent">Skills</a>
-      <a href="#experience" class="hover:accent">Experience</a>
-      <a href="#projects"   class="hover:accent">Projects</a>
-      <a href="#education"  class="hover:accent">Education</a>
-      <a href="#contact"    class="hover:accent">Contact</a>
-    </nav>
-
-    <button id="burger" class="md:hidden text-white focus:outline-none">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 6h16M4 12h16m-7 6h7"/>
-      </svg>
-    </button>
-  </div>
-
-  <!-- Mobile Nav -->
-  <div id="mobile" class="hidden md:hidden px-6 pb-4">
-    <a href="#about"      class="block py-2 hover:accent">About</a>
-    <a href="#skills"     class="block py-2 hover:accent">Skills</a>
-    <a href="#experience" class="block py-2 hover:accent">Experience</a>
-    <a href="#projects"   class="block py-2 hover:accent">Projects</a>
-    <a href="#education"  class="block py-2 hover:accent">Education</a>
-    <a href="#contact"    class="block py-2 hover:accent">Contact</a>
-  </div>
-</header>
-
-<main class="container mx-auto px-6 pt-24">
-
-<!-- ===== Hero ===== -->
-<section id="home" class="min-h-screen flex items-center">
-  <div class="w-full grid grid-cols-1 md:grid-cols-2 items-center gap-12">
-    <div class="text-center md:text-left">
-      <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight">
-        Rama Krishna Aditya Bharadwaj Kolluri
-      </h1>
-      <p class="text-lg md:text-2xl mt-4 accent">
-        Business Systems & Technology Analyst • Digital Transformation Specialist
-      </p>
-      <p class="mt-6 max-w-3xl text-gray-300">
-        Results-driven professional bridging academia and industry through AI-led digitalisation,
-        workflow automation and autonomous systems. Passionate about optimising operations
-        and crafting data-driven strategies that propel growth.
-      </p>
-
-      <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-4">
-        <a href="https://www.linkedin.com/in/krkab369/" target="_blank"
-           class="btn px-6 py-3 accent bg-opacity-90 hover:bg-opacity-100 text-white">LinkedIn</a>
-
-        <a href="https://github.com/Aditya469" target="_blank"
-           class="btn px-6 py-3 border-2 border-[var(--accent)] text-white hover:bg-[var(--accent)]">
-          GitHub
-        </a>
-
-        <!-- Download buttons -->
-        <a href="support_files/profile.pdf" download
-           class="btn px-6 py-3 border-2 border-[var(--accent)] text-white hover:bg-[var(--accent)]">
-          CV (PDF)
-        </a>
-        <a href="support_files/Rama-Kolluri.docx" download
-           class="btn px-6 py-3 border-2 border-[var(--accent)] text-white hover:bg-[var(--accent)]">
-          CV (DOCX)
-        </a>
-      </div>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">Loading...</div>
     </div>
 
-    <div class="flex justify-center">
-      <!-- Replace with your actual filename -->
-      <img src="support_files/profile.jpg"
-           alt="Rama Krishna Aditya Bharadwaj Kolluri"
-           class="rounded-full w-64 h-64 md:w-80 md:h-80 object-cover border-4 border-[var(--accent)] shadow-2xl">
-    </div>
-  </div>
-</section>
-
-<!-- ===== About ===== -->
-<section id="about" class="py-20">
-  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">About Me</h2>
-  <div class="glass rounded-xl p-8 max-w-4xl mx-auto">
-    <p class="text-lg leading-relaxed">
-      I lead transformative digitalisation at <span class="accent">ECAM Precision Engineering Ltd</span>,
-      driving visibility, traceability and AI-driven efficiency across manufacturing.
-      As a <span class="accent">Knowledge Transfer Partnership (KTP) Associate</span> with
-      Birmingham City University, I fuse academic rigour with industrial execution,
-      crafting innovative solutions that anticipate tomorrow’s challenges.
-    </p><br>
-    <p class="text-lg leading-relaxed">
-      Certified in <strong>Agentic AI + N8N Workflow Automation</strong>, Agile PM, and Prompt Engineering,
-      I specialise in workflow orchestration, data analytics and autonomous systems,
-      continuously translating complex technology into measurable business value.
-    </p>
-  </div>
-</section>
-
-<!-- ===== Skills ===== -->
-<section id="skills" class="py-20">
-  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">Technical Skills</h2>
-  <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-    <!-- Card -->
-    <div class="glass rounded-xl p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold text-white mb-4">Machine Learning / AI</h3>
-      <ul class="space-y-1">
-        <li>OpenCV • TensorFlow • Scikit-learn • Neural Networks</li>
-      </ul>
-    </div>
-    <!-- Card -->
-    <div class="glass rounded-xl p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold text-white mb-4">Data & Development</h3>
-      <ul class="space-y-1">
-        <li>Python • PHP • Java • SQL</li>
-        <li>Pandas • NumPy • Matplotlib</li>
-        <li>Git / GitHub</li>
-      </ul>
-    </div>
-    <!-- Card -->
-    <div class="glass rounded-xl p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold text-white mb-4">Systems & Hardware</h3>
-      <ul class="space-y-1">
-        <li>Arduino • Raspberry Pi • Sensor Integration</li>
-        <li>MATLAB • NI LabVIEW</li>
-        <li>Autonomous Robotics</li>
-      </ul>
-    </div>
-    <!-- Card -->
-    <div class="glass rounded-xl p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold text-white mb-4">Testing & Automation</h3>
-      <ul class="space-y-1">
-        <li>Selenium • Postman • Python Unit Tests</li>
-        <li>Agentic AI + N8N Workflows</li>
-      </ul>
-    </div>
-    <!-- Card -->
-    <div class="glass rounded-xl p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold text-white mb-4">Business & Strategy</h3>
-      <ul class="space-y-1">
-        <li>Agile Project Management</li>
-        <li>IT & Marketing Strategy</li>
-        <li>Business Analysis</li>
-        <li>Strategic Communications</li>
-      </ul>
-    </div>
-    <!-- Card -->
-    <div class="glass rounded-xl p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold text-white mb-4">Languages</h3>
-      <ul class="space-y-1">
-        <li>English (Full Professional)</li>
-        <li>Telugu (Native)</li>
-        <li>Hindi (Limited Working)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ===== Experience ===== -->
-<section id="experience" class="py-20">
-  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">Experience</h2>
-  <div class="relative max-w-4xl mx-auto">
-    <!-- vertical line -->
-    <div class="absolute left-1/2 -translate-x-1/2 h-full w-[2px] bg-[var(--accent)]"></div>
-
-    <!-- Item -->
-    <div class="mb-12 flex justify-between items-start w-full">
-      <div class="order-1 w-5/12"></div>
-      <div class="z-20 order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full flex items-center justify-center">
-        <span class="font-semibold text-white">1</span>
-      </div>
-      <div class="order-1 glass rounded-xl p-6 w-5/12">
-        <p class="text-sm accent">Jul 2023 – Present</p>
-        <h3 class="font-bold text-lg text-white">Business Systems & Technology Analyst</h3>
-        <p class="text-gray-300 text-sm">ECAM Engineering & Birmingham City University</p>
-      </div>
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
     </div>
 
-    <!-- Item -->
-    <div class="mb-12 flex justify-between flex-row-reverse items-start w-full">
-      <div class="order-1 w-5/12"></div>
-      <div class="z-20 order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full flex items-center justify-center">
-        <span class="font-semibold text-white">2</span>
-      </div>
-      <div class="order-1 glass rounded-xl p-6 w-5/12">
-        <p class="text-sm accent">Feb 2022 – Jun 2023</p>
-        <h3 class="font-bold text-lg text-white">Graduate Project Engineer</h3>
-        <p class="text-gray-300 text-sm">DigitME2, University of Central Lancashire</p>
-      </div>
-    </div>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
 
-    <!-- Item -->
-    <div class="mb-12 flex justify-between items-start w-full">
-      <div class="order-1 w-5/12"></div>
-      <div class="z-20 order-1 bg-gray-800 shadow-xl w-8 h-8 rounded-full flex items-center justify-center">
-        <span class="font-semibold text-white">3</span>
-      </div>
-      <div class="order-1 glass rounded-xl p-6 w-5/12">
-        <p class="text-sm accent">May 2021 – Sep 2021</p>
-        <h3 class="font-bold text-lg text-white">Research Intern – Autonomous Vehicles</h3>
-        <p class="text-gray-300 text-sm">Arab Academy for Science, Technology & Maritime Transport</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Animated Background -->
+    <div class="animated-bg" id="animatedBg"></div>
 
-<!-- ===== Projects ===== -->
-<section id="projects" class="py-20">
-  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">Key Projects</h2>
-  <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-    <!-- Card -->
-    <div class="glass rounded-xl p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold text-white mb-2">Smart Planetary Rover</h3>
-      <p class="text-sm accent mb-4">MSc Thesis</p>
-      <p>Designed a rover with pedal-rail alignment for improved stability on uneven terrain.</p>
-    </div>
-    <!-- Card -->
-    <div class="glass rounded-xl p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold text-white mb-2">Piezoelectric Energy Harvester</h3>
-      <p class="text-sm accent mb-4">MSc Group Project</p>
-      <p>Engineered a device to convert ambient vibrations into electrical energy.</p>
-    </div>
-    <!-- Card -->
-    <div class="glass rounded-xl p-6 hover:scale-105 transition">
-      <h3 class="text-xl font-bold text-white mb-2">Box Transfer Machine</h3>
-      <p class="text-sm accent mb-4">BTech Capstone</p>
-      <p>Automated box transfer system for small-scale industries to boost efficiency.</p>
-    </div>
-  </div>
-</section>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="nav-container">
+            <div class="logo">RKAB</div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
 
-<!-- ===== Education ===== -->
-<section id="education" class="py-20">
-  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">Education</h2>
-  <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-    <div class="glass rounded-xl p-6">
-      <p class="text-sm accent">2020 – 2021</p>
-      <h3 class="text-lg font-bold text-white mt-2">MSc Mechatronics & Intelligent Machines (Distinction)</h3>
-      <p class="text-gray-300">University of Central Lancashire, UK</p>
-    </div>
-    <div class="glass rounded-xl p-6">
-      <p class="text-sm accent">2013 – 2018</p>
-      <h3 class="text-lg font-bold text-white mt-2">BTech Mechanical Engineering</h3>
-      <p class="text-gray-300">Vishnu Institute of Technology, India</p>
-    </div>
-  </div>
-</section>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">Rama Krishna Aditya Bharadwaj Kolluri</h1>
+                <p class="hero-subtitle">
+                    <span class="typing-text" id="typingText">Business Systems & Technology Analyst</span>
+                </p>
+                <p class="hero-description">
+                    Results-driven professional bridging academia and industry through AI-led digitalisation,
+                    workflow automation and autonomous systems. Passionate about optimising operations
+                    and crafting data-driven strategies that propel growth.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://www.linkedin.com/in/krkab369/" target="_blank" class="btn btn-primary">
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/Aditya469" target="_blank" class="btn btn-secondary">
+                        <span>GitHub</span>
+                    </a>
+                    <a href="support_files/profile.pdf" download class="btn btn-secondary">
+                        <span>CV (PDF)</span>
+                    </a>
+                    <a href="support_files/Rama-Kolluri.docx" download class="btn btn-secondary">
+                        <span>CV (DOCX)</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-container">
+                    <div class="profile-ring"></div>
+                    <img src="support_files/profile.jpg" alt="Rama Krishna Aditya Bharadwaj Kolluri" class="profile-image">
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- ===== Contact ===== -->
-<section id="contact" class="py-20">
-  <h2 class="text-3xl font-bold mb-8 text-center accent tracking-wider">Get in Touch</h2>
-  <div class="glass rounded-xl p-8 max-w-2xl mx-auto text-center">
-    <p class="text-lg mb-6">
-      Interested in collaborating or just want to say hi? Drop a message!
-    </p>
-    <a href="mailto:aditya.kolluri0@gmail.com"
-       class="btn px-8 py-3 bg-[var(--accent)] text-white hover:bg-sky-500 text-lg">
-      Say Hello
-    </a>
-    <div class="mt-8 text-gray-400">
-      Email: aditya.kolluri0@gmail.com
-    </div>
-  </div>
-</section>
-</main>
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="support_files/profile.jpg" alt="About" class="about-avatar">
+                </div>
+                <div class="about-text">
+                    <p>
+                        I lead transformative digitalisation at <span style="color: var(--primary-color);">ECAM Precision Engineering Ltd</span>,
+                        driving visibility, traceability and AI-driven efficiency across manufacturing.
+                        As a <span style="color: var(--primary-color);">Knowledge Transfer Partnership (KTP) Associate</span> with
+                        Birmingham City University, I fuse academic rigour with industrial execution,
+                        crafting innovative solutions that anticipate tomorrow's challenges.
+                    </p>
+                    <br>
+                    <p>
+                        Certified in <strong>Agentic AI + N8N Workflow Automation</strong>, Agile PM, and Prompt Engineering,
+                        I specialise in workflow orchestration, data analytics and autonomous systems,
+                        continuously translating complex technology into measurable business value.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- ===== Footer ===== -->
-<footer class="border-t border-gray-800">
-  <div class="container mx-auto py-6 px-6 text-center text-gray-500">
-    <div class="flex justify-center gap-6 mb-4">
-      <a href="https://www.linkedin.com/in/krkab369/" target="_blank" class="hover:text-white transition">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill-rule="evenodd"
-            d="M19 0H5C2.239 0 0 2.239 0 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5V5c0-2.761-2.239-5-5-5zM8 19H5V8h3v11zm-1.5-12.3c-.966 0-1.75-.79-1.75-1.764 0-.975.784-1.764 1.75-1.764s1.75.789 1.75 1.764c0 .974-.784 1.764-1.75 1.764zm13.5 12.3h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765C14.396 7.179 20 6.988 20 12.241V19z"
-            clip-rule="evenodd"/>
-        </svg>
-      </a>
-      <a href="https://github.com/Aditya469" target="_blank" class="hover:text-white transition">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill-rule="evenodd"
-            d="M12 .5C5.648.5.5 5.648.5 12c0 5.084 3.292 9.387 7.865 10.905.575.106.784-.25.784-.556
-             0-.274-.01-1-.016-1.964-3.194.695-3.87-1.54-3.87-1.54-.523-1.33-1.275-1.684-1.275-1.684-1.043-.713.079-.699.079-.699
-             1.154.081 1.762 1.184 1.762 1.184 1.025 1.756 2.691 1.249 3.348.955.104-.743.402-1.249.731-1.537-2.553-.29-5.237-1.281-5.237-5.702
-             0-1.259.448-2.289 1.183-3.094-.118-.29-.512-1.456.112-3.033 0 0 .965-.31 3.162 1.182a11.013 11.013 0 012.879-.387
-             c.975.004 1.955.132 2.878.387 2.2-1.492 3.163-1.182 3.163-1.182.626 1.576.232 2.742.113 3.033.737.805 1.182
-             1.835 1.182 3.094 0 4.432-2.689 5.409-5.254 5.694.414.357.783 1.062.783 2.138
-             0 1.545-.014 2.788-.014 3.167 0 .309.207.668.789.555C20.711 21.382 24 17.081 24 12
-             24 5.648 18.352.5 12 .5z"
-            clip-rule="evenodd"/>
-        </svg>
-      </a>
-    </div>
-    <p>&copy; 2025 Rama Krishna Aditya Bharadwaj Kolluri. All Rights Reserved.</p>
-  </div>
-</footer>
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Machine Learning / AI</h3>
+                    <ul class="skill-list">
+                        <li>OpenCV</li>
+                        <li>TensorFlow</li>
+                        <li>Scikit-learn</li>
+                        <li>Neural Networks</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Data & Development</h3>
+                    <ul class="skill-list">
+                        <li>Python</li>
+                        <li>PHP</li>
+                        <li>Java</li>
+                        <li>SQL</li>
+                        <li>Pandas</li>
+                        <li>NumPy</li>
+                        <li>Matplotlib</li>
+                        <li>Git / GitHub</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Systems & Hardware</h3>
+                    <ul class="skill-list">
+                        <li>Arduino</li>
+                        <li>Raspberry Pi</li>
+                        <li>Sensor Integration</li>
+                        <li>MATLAB</li>
+                        <li>NI LabVIEW</li>
+                        <li>Autonomous Robotics</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Testing & Automation</h3>
+                    <ul class="skill-list">
+                        <li>Selenium</li>
+                        <li>Postman</li>
+                        <li>Python Unit Tests</li>
+                        <li>Agentic AI + N8N Workflows</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Business & Strategy</h3>
+                    <ul class="skill-list">
+                        <li>Agile Project Management</li>
+                        <li>IT & Marketing Strategy</li>
+                        <li>Business Analysis</li>
+                        <li>Strategic Communications</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Languages</h3>
+                    <ul class="skill-list">
+                        <li>English (Full Professional)</li>
+                        <li>Telugu (Native)</li>
+                        <li>Hindi (Limited Working)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- ===== Scripts ===== -->
-<script>
-  // burger menu
-  const burger = document.getElementById('burger');
-  const mobile = document.getElementById('mobile');
-  burger.addEventListener('click', () => mobile.classList.toggle('hidden'));
-</script>
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title">Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Jul 2023 – Present</div>
+                    <h3 class="timeline-title">Business Systems & Technology Analyst</h3>
+                    <p class="timeline-company">ECAM Engineering & Birmingham City University</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Feb 2022 – Jun 2023</div>
+                    <h3 class="timeline-title">Graduate Project Engineer</h3>
+                    <p class="timeline-company">DigitME2, University of Central Lancashire</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">May 2021 – Sep 2021</div>
+                    <h3 class="timeline-title">Research Intern – Autonomous Vehicles</h3>
+                    <p class="timeline-company">Arab Academy for Science, Technology & Maritime Transport</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Key Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3 class="project-title">Smart Planetary Rover</h3>
+                    <p class="project-type">MSc Thesis</p>
+                    <p class="project-description">
+                        Designed a rover with pedal-rail alignment for improved stability on uneven terrain.
+                    </p>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Piezoelectric Energy Harvester</h3>
+                    <p class="project-type">MSc Group Project</p>
+                    <p class="project-description">
+                        Engineered a device to convert ambient vibrations into electrical energy.
+                    </p>
+                </div>
+                <div class="project-card">
+                    <h3 class="project-title">Box Transfer Machine</h3>
+                    <p class="project-type">BTech Capstone</p>
+                    <p class="project-description">
+                        Automated box transfer system for small-scale industries to boost efficiency.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-content">
+                <p class="contact-text">
+                    Interested in collaborating or just want to say hi? Drop a message!
+                </p>
+                <div class="contact-info">
+                    <p>Email: aditya.kolluri0@gmail.com</p>
+                </div>
+                <a href="mailto:aditya.kolluri0@gmail.com" class="btn btn-primary">
+                    Say Hello
+                </a>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/krkab369/" target="_blank" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="https://github.com/Aditya469" target="_blank" class="social-link">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Rama Krishna Aditya Bharadwaj Kolluri. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+        // Global variables
+        let cursor = document.getElementById('cursor');
+        let cursorFollower = document.getElementById('cursorFollower');
+        let loadingScreen = document.getElementById('loadingScreen');
+        let scrollProgress = document.getElementById('scrollProgress');
+        let header = document.getElementById('header');
+        let mobileToggle = document.getElementById('mobileToggle');
+        let navMenu = document.getElementById('navMenu');
+
+        // Loading screen animation
+        window.addEventListener('load', () => {
+            gsap.to(loadingScreen, {
+                opacity: 0,
+                duration: 1,
+                delay: 0.5,
+                onComplete: () => {
+                    loadingScreen.style.display = 'none';
+                    initAnimations();
+                }
+            });
+        });
+
+        // Custom cursor
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX,
+                y: e.clientY,
+                duration: 0.1
+            });
+            gsap.to(cursorFollower, {
+                x: e.clientX - 20,
+                y: e.clientY - 20,
+                duration: 0.3
+            });
+        });
+
+        // Cursor hover effects
+        document.querySelectorAll('a, button, .btn').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                gsap.to(cursor, { scale: 1.5, duration: 0.3 });
+                gsap.to(cursorFollower, { scale: 1.5, duration: 0.3 });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(cursor, { scale: 1, duration: 0.3 });
+                gsap.to(cursorFollower, { scale: 1, duration: 0.3 });
+            });
+        });
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            scrollProgress.style.width = scrolled + '%';
+            
+            // Header scroll effect
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        scrollTo: target,
+                        duration: 1,
+                        ease: "power2.out"
+                    });
+                }
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Typing animation
+        const typingTexts = [
+            "Business Systems & Technology Analyst",
+            "Digital Transformation Specialist",
+            "AI Implementation Expert",
+            "Workflow Automation Specialist"
+        ];
+        let currentTextIndex = 0;
+        let currentCharIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typingText');
+
+        function typeText() {
+            const currentText = typingTexts[currentTextIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, currentCharIndex - 1);
+                currentCharIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, currentCharIndex + 1);
+                currentCharIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && currentCharIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && currentCharIndex === 0) {
+                isDeleting = false;
+                currentTextIndex = (currentTextIndex + 1) % typingTexts.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeText, typeSpeed);
+        }
+
+        // Floating particles
+        function createParticles() {
+            const animatedBg = document.getElementById('animatedBg');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = Math.random() * 4 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                animatedBg.appendChild(particle);
+            }
+        }
+
+        // Initialize animations
+        function initAnimations() {
+            // Start typing animation
+            typeText();
+            
+            // Create particles
+            createParticles();
+
+            // Hero section animations
+            const tl = gsap.timeline();
+            tl.from('.hero-title', { y: 50, opacity: 0, duration: 1, ease: "power2.out" })
+              .from('.hero-subtitle', { y: 50, opacity: 0, duration: 1, ease: "power2.out" }, "-=0.5")
+              .from('.hero-description', { y: 50, opacity: 0, duration: 1, ease: "power2.out" }, "-=0.5")
+              .from('.hero-buttons', { y: 50, opacity: 0, duration: 1, ease: "power2.out" }, "-=0.5")
+              .from('.profile-container', { scale: 0, opacity: 0, duration: 1, ease: "back.out(1.7)" }, "-=0.5");
+
+            // Scroll-triggered animations
+            gsap.utils.toArray('.section').forEach(section => {
+                gsap.from(section.querySelectorAll('.section-title'), {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // Skill cards animation
+            gsap.utils.toArray('.skill-card').forEach((card, index) => {
+                gsap.from(card, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: index * 0.1,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // Timeline animation
+            gsap.utils.toArray('.timeline-item').forEach((item, index) => {
+                gsap.from(item, {
+                    x: index % 2 === 0 ? -50 : 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // Project cards animation
+            gsap.utils.toArray('.project-card').forEach((card, index) => {
+                gsap.from(card, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: index * 0.1,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                });
+            });
+
+            // About section animation
+            gsap.from('.about-image', {
+                x: -50,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: '.about-content',
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
+            gsap.from('.about-text', {
+                x: 50,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: '.about-content',
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+
+            // Contact section animation
+            gsap.from('.contact-content', {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: '.contact-content',
+                    start: "top 80%",
+                    toggleActions: "play none none reverse"
+                }
+            });
+        }
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero');
+            if (parallax) {
+                const speed = scrolled * 0.5;
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+
+        // Add hover effects to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                gsap.to(btn, { scale: 1.05, duration: 0.3 });
+            });
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, { scale: 1, duration: 0.3 });
+            });
+        });
+
+        // Add magnetic effect to cards
+        document.querySelectorAll('.skill-card, .project-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                gsap.to(card, {
+                    x: x * 0.1,
+                    y: y * 0.1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "power2.out"
+                });
+            });
+        });
+    </script>
 </body>
 </html>
