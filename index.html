@@ -2265,22 +2265,18 @@
         });
 
         // Smooth scrolling for all navigation links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const targetId = link.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
                 if (targetSection) {
-                    const headerHeight = header.offsetHeight;
-                    const targetPosition = targetSection.offsetTop - headerHeight;
-                    
-                    gsap.to(window, {
-                        scrollTo: targetPosition,
-                        duration: 1,
-                        ease: "power2.out"
-                    });
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    console.warn('No section found for:', targetId);
                 }
+            });
                 
                 // Close mobile menu if open
                 navMenu.classList.remove('active');
